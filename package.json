@@ -1,6 +1,6 @@
 {
-  "name": "@acaprojects/ngx-overlays",
-  "version": "0.3.0",
+  "name": "@acaprojects/ngx-date-picker",
+  "version": "0.1.0",
   "license": "MIT",
   "scripts": {
     "ng": "ng",
@@ -19,8 +19,7 @@
     }
   },
   "peerDependencies": {
-    "dayjs": "^1.8.11",
-    "@angular/cdk": "^7.3.6"
+    "dayjs": "^1.8.11"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.10.0",
