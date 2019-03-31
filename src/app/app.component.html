@@ -1,0 +1,7 @@
+<div class="app">
+    <div class="test">
+        <date-picker [(model)]="model.date" [counters]="model.events" [options]="{ from: model.from, to: model.to }"></date-picker>
+        <div class="date">{{model.date | date}}</div>
+        <button (click)="reset()">Reset Date</button>
+    </div>
+</div>

@@ -1,0 +1,24 @@
+<div [class]="'date-picker' + (klass ? ' ' + klass : '')">
+    <div class="header">
+        <div class="arrow previous" [class.disabled]="offset <= min_offset" (click)="changeMonth(-1)" (touchend)="changeMonth(-1)">
+            <div class="previous icon"></div>
+        </div>
+        <div class="month" (dblclick)="reset()">{{month_name}}</div>
+        <div class="arrow next" [class.disabled]="offset >= max_offset" (click)="changeMonth(1)" (touchend)="changeMonth(1)">
+            <div class="next icon"></div>
+        </div>
+    </div>
+    <div class="week">
+        <div class="block" *ngFor="let item of days_of_week">{{item}}</div>
+    </div>
+    <div class="body">
+        <div class="block" *ngFor="let item of date_list">
+            <div class="date" (click)="setDate(item)" (touchend)="setDate(item)" [class.non-month]="item.non_month"
+                [class.disabled]="item.disabled && !item.non-month" [class.active]="item.active">
+                {{item.display}}
+                <div class="dot" *ngIf="item.today"></div>
+                <div class="count" *ngIf="item.count">{{item.count > 9 ? '+9' : item.count}}</div>
+            </div>
+        </div>
+    </div>
+</div>
