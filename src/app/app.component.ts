@@ -29,6 +29,7 @@ export class AppComponent implements OnInit {
         this.model.events[`${dayjs().add(6, 'd').format('YYYY-MM-DD')}`] = Math.floor(Math.random() * 20 + 1);
         this.model.events[`${dayjs().add(1, 'M').format('YYYY-MM-DD')}`] = Math.floor(Math.random() * 20 + 1);
         this.model.events[`${dayjs().add(50, 'd').format('YYYY-MM-DD')}`] = Math.floor(Math.random() * 20 + 1);
+        this.model.format = 'dd';
     }
 
     public reset() {

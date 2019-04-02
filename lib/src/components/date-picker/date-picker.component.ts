@@ -9,6 +9,10 @@ export interface IDatePickerOptions {
     from?: number;
     /** Unix timestamp with millisecond. Last selectable date */
     to?: number;
+    /** Dayjs format string for formatting days of the week. Defaults to `DDD` */
+    day_format?: string;
+    /** Dayjs format string for formatting active month. Defaults to `MMMM YYYY` */
+    month_format?: string;
 }
 
 interface IDateBlock {
@@ -66,6 +70,10 @@ export class DatePickerComponent implements OnInit, OnChanges, ControlValueAcces
     private from: day_api.Dayjs;
     /** Last selectable date */
     private to: day_api.Dayjs;
+    /** Dayjs format string for formatting days of the week. Defaults to `ddd` */
+    private day_format = 'DDD';
+    /** Dayjs format string for formatting active month. Defaults to `MMMM YYYY` */
+    private month_format = 'MMMM YYYY';
     /** Form control on change handler */
     public onChange: (_: number) => void;
     /** Form control on touch handler */
@@ -73,12 +81,7 @@ export class DatePickerComponent implements OnInit, OnChanges, ControlValueAcces
 
     public ngOnInit(): void {
         this.generateMonth();
-        let date = dayjs().startOf('week');
-        this.days_of_week = [];
-        for (let i = 0; i < 7; i++) {
-            this.days_of_week.push(date.format('ddd'));
-            date = date.add(1, 'd');
-        }
+        this.generateDaysOfTheWeek();
     }
 
     public ngOnChanges(changes: SimpleChanges): void {
@@ -137,6 +140,13 @@ export class DatePickerComponent implements OnInit, OnChanges, ControlValueAcces
                 this.to = null;
                 this.max_offset = 999999;
             }
+            if (this.options.month_format) {
+                this.month_format = this.options.month_format || 'MMMM YYYY';
+            }
+            if (this.options.day_format) {
+                this.day_format = this.options.day_format || 'ddd';
+                this.generateDaysOfTheWeek();
+            }
             // Update date blocks
             this.generateMonth();
         }
@@ -145,7 +155,7 @@ export class DatePickerComponent implements OnInit, OnChanges, ControlValueAcces
     /**
      * Generate the display blocks for the days of the active month
      */
-    public generateMonth(): void {
+    private generateMonth(): void {
         const today = dayjs();
         const date = dayjs().add(this.offset, 'month');
         const active = dayjs(this.model);
@@ -164,7 +174,19 @@ export class DatePickerComponent implements OnInit, OnChanges, ControlValueAcces
             });
             start = start.add(1, 'd');
         }
-        this.month_name = date.format('MMMM YYYY');
+        this.month_name = date.format(this.month_format);
+    }
+
+    /**
+     * Generate this weekdays to display in the header of the calendar
+     */
+    private generateDaysOfTheWeek() {
+        let date = dayjs().startOf('week');
+        this.days_of_week = [];
+        for (let i = 0; i < 7; i++) {
+            this.days_of_week.push(date.format(this.day_format));
+            date = date.add(1, 'd');
+        }
     }
 
     /**
@@ -187,7 +209,11 @@ export class DatePickerComponent implements OnInit, OnChanges, ControlValueAcces
     public reset() {
         const today = dayjs();
         const date = dayjs(this.model);
+        const offset = this.offset;
         this.offset = today.diff(date, 'month');
+        if (offset !== this.offset) {
+            this.generateMonth();
+        }
     }
 
     /**
