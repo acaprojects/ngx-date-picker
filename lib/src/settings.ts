@@ -11,10 +11,10 @@ declare global {
     }
 }
 
-const LIB_NAME = 'OVERLAYS';
+const LIB_NAME = 'DATE_PICKER';
 
 export class LIBRARY_SETTINGS {
-    public static readonly type = 'Overlays';
+    public static readonly type = 'Date Picker';
 
     public static log(type: string, msg: string, args?: any, out: string = 'debug', color?: string) {
         if (window.debug) {
