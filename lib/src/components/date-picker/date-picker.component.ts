@@ -71,7 +71,7 @@ export class DatePickerComponent implements OnInit, OnChanges, ControlValueAcces
     /** Last selectable date */
     private to: day_api.Dayjs;
     /** Dayjs format string for formatting days of the week. Defaults to `ddd` */
-    private day_format = 'DDD';
+    private day_format = 'ddd';
     /** Dayjs format string for formatting active month. Defaults to `MMMM YYYY` */
     private month_format = 'MMMM YYYY';
     /** Form control on change handler */
