@@ -23,6 +23,7 @@
     height: 1.5em;
     width: 1.5em;
     cursor: pointer;
+    margin: 0 .5em;
 
     &.disabled {
         opacity: .2;
@@ -94,6 +95,7 @@
         background-color: $color-primary;
         color: #fff;
         cursor: default;
+        font-weight: 500;
         &:hover {
             background: $color-primary;
         }
@@ -123,14 +125,15 @@
 
 .dot {
     position: absolute;
-    bottom: -3px;
+    bottom: -2px;
     left: 50%;
     transform: translateX(-50%);
-    height: 6px;
-    width: 6px;
+    height: 4px;
+    width: 4px;
     border-radius: 100%;
-    border: 3px solid #fff;
+    border: 2px solid #fff;
     background-color: $color-primary;
+    box-sizing: content-box;
 }
 
 .count {
