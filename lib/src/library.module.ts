@@ -47,5 +47,5 @@ class LibraryModule {
     }
 }
 
-export const ACA_DATA_PICKER_MODULE = LibraryModule;
-export const DatePickerModule = LibraryModule;
+export { LibraryModule as DatePickerModule };
+export { LibraryModule as ACA_DATA_PICKER_MODULE };

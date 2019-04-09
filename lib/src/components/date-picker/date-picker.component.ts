@@ -45,6 +45,8 @@ interface IDateBlock {
     ]
 })
 export class DatePickerComponent implements OnInit, OnChanges, ControlValueAccessor {
+    /** CSS class to add to the root element of the component */
+    @Input() public klass = 'default';
     /** Date timestamp input */
     @Input() public model: number = dayjs().valueOf();
     /** Counters of the events on given dates. Key format is YYYY-MM-DD */

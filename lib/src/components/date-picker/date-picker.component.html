@@ -1,4 +1,4 @@
-<div [class]="'date-picker' + (klass ? ' ' + klass : '')">
+<div [class]="'date-picker' + (klass ? ' ' + klass : '')" widget>
     <div class="header">
         <div class="arrow previous" [class.disabled]="offset <= min_offset" (click)="changeMonth(-1)" (touchend)="changeMonth(-1)">
             <div class="previous icon"></div>
