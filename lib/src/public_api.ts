@@ -1,8 +1,5 @@
 
     // Export Library Module
 export * from './library.module';
-    // Export Library Services
-
-    // Export Library Directives
-
-    // Export Library Classes
+    // Export Library Components
+export * from './components/date-picker/date-picker.component';

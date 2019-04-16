@@ -15,7 +15,7 @@ html, body, .app {
 body {
     min-height: 100%;
     overflow: hidden;
-    background-color: #eee;
+    background-color: #37474F;
     font-size: $desktop-font-size;
     @include respond-to(mobile) {
         font-size: $tablet-font-size;
@@ -104,4 +104,12 @@ button {
     background-color: #1E88E5;
     color: #fff;
     margin: .25em;
+    border: none;
+    outline: none;
+    transition: background-color 200ms, box-shadow 200ms;
+    &:hover {
+        background-color: #1E88E5;
+        box-shadow: 0 1px 3px 0 rgba(#000, .2), 0 1px 1px 0 rgba(#000, .14), 0 2px 1px -1px rgba(#000, .12);
+    }
 }
+

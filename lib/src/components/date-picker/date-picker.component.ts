@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnChanges, SimpleChanges, Output, EventEmitter, forwardRef } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, SimpleChanges, forwardRef } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 import * as day_api from 'dayjs';
@@ -47,14 +47,12 @@ interface IDateBlock {
 export class DatePickerComponent implements OnInit, OnChanges, ControlValueAccessor {
     /** CSS class to add to the root element of the component */
     @Input() public klass = 'default';
-    /** Date timestamp input */
-    @Input() public model: number = dayjs().valueOf();
     /** Counters of the events on given dates. Key format is YYYY-MM-DD */
     @Input() public counters: { [date: string]: number };
     /** Settings for the date picker component */
     @Input() public options: IDatePickerOptions;
-    /** Change emitter for the date timestamp */
-    @Output() public modelChange = new EventEmitter<number>();
+
+    public date: number = dayjs().valueOf();
 
     /** Offset of the month displayed from the current month */
     public offset = 0;
@@ -77,9 +75,9 @@ export class DatePickerComponent implements OnInit, OnChanges, ControlValueAcces
     /** Dayjs format string for formatting active month. Defaults to `MMMM YYYY` */
     private month_format = 'MMMM YYYY';
     /** Form control on change handler */
-    public onChange: (_: number) => void;
+    private _onChange: (_: number) => void;
     /** Form control on touch handler */
-    public onTouch: (_: number) => void;
+    private _onTouch: (_: number) => void;
 
     public ngOnInit(): void {
         this.generateMonth();
@@ -97,9 +95,11 @@ export class DatePickerComponent implements OnInit, OnChanges, ControlValueAcces
 
     /** Change date using the given block */
     public setDate(item: IDateBlock) {
-        this.model = item.value;
-        this.modelChange.emit(this.model);
-        if (this.onChange) { this.onChange(this.model); }
+        this.date = item.value;
+        if (this._onChange) { 
+            this._onChange(this.date); 
+        }
+        this.generateMonth();
     }
 
     /**
@@ -107,7 +107,7 @@ export class DatePickerComponent implements OnInit, OnChanges, ControlValueAcces
      */
     public updateDate(): void {
         const now = dayjs().startOf('month');
-        const date = dayjs(this.model).startOf('month');
+        const date = dayjs(this.date).startOf('month');
         if (date.isValid()) {
             const difference = date.diff(now, 'month');
             if (this.offset !== difference) {
@@ -160,7 +160,7 @@ export class DatePickerComponent implements OnInit, OnChanges, ControlValueAcces
     private generateMonth(): void {
         const today = dayjs();
         const date = dayjs().add(this.offset, 'month');
-        const active = dayjs(this.model);
+        const active = dayjs(this.date);
         let start = date.date(1).day(0);
         const end = dayjs(start).add(5, 'week').endOf('week');
         this.date_list = [];
@@ -210,7 +210,7 @@ export class DatePickerComponent implements OnInit, OnChanges, ControlValueAcces
      */
     public reset() {
         const today = dayjs();
-        const date = dayjs(this.model);
+        const date = dayjs(this.date);
         const offset = this.offset;
         this.offset = today.diff(date, 'month');
         if (offset !== this.offset) {
@@ -220,25 +220,26 @@ export class DatePickerComponent implements OnInit, OnChanges, ControlValueAcces
 
     /**
      * Update local value when form control value is changed
-     * @param value
+     * @param value The new value for the component
      */
     public writeValue(value: number) {
-        this.setDate({ value } as IDateBlock);
+        this.date = value;
+        this.generateMonth();
     }
 
     /**
-     * Register on change callback given for form control
-     * @param fn
+     * Registers a callback function that is called when the control's value changes in the UI.
+     * @param fn The callback function to register
      */
     public registerOnChange(fn: (_: number) => void): void {
-        this.onChange = fn;
+        this._onChange = fn;
     }
 
     /**
-     * Register on touched callback given for form control
-     * @param fn
+     * Registers a callback function is called by the forms API on initialization to update the form model on blur.
+     * @param fn The callback function to register
      */
     public registerOnTouched(fn: (_: number) => void): void {
-        this.onTouch = fn;
+        this._onTouch = fn;
     }
 }
