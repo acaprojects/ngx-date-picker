@@ -155,7 +155,7 @@ gulp.task('update:version', (next) => {
 gulp.task('update:version-lib', (next) => {
     const v = npmconfig.version;
     const b = dayjs().startOf('s').valueOf();
-    return gulp.src(['./lib/src/composer.module.ts']) // Any file globs are supported
+    return gulp.src(['./lib/src/library.module.ts']) // Any file globs are supported
         .pipe(replace(/public static version = '[0-9a-zA-Z.-]*'/g, `public static version = '${v}'`, { logs: { enabled: true } }))
         .pipe(replace(/private build = dayjs\([0-9]*\);/g, `private build = dayjs(${b});`, { logs: { enabled: true } }))
         .pipe(gulp.dest('./lib/src'));
@@ -171,7 +171,7 @@ gulp.task('clean:version', (next) => {
 gulp.task('clean:version-lib', (next) => {
     const v = npmconfig.version;
     const b = dayjs().startOf('s').valueOf();
-    return gulp.src(['./lib/src/composer.module.ts']) // Any file globs are supported
+    return gulp.src(['./lib/src/library.module.ts']) // Any file globs are supported
         .pipe(replace(/public static version = '[0-9a-zA-Z.-]*'/g, `public static version = 'local-dev'`, { logs: { enabled: true } }))
         .pipe(replace(/private build = dayjs\([0-9]*\);/g, `private build = dayjs();`, { logs: { enabled: true } }))
         .pipe(gulp.dest('./lib/src'));
