@@ -96,8 +96,8 @@ export class DatePickerComponent implements OnInit, OnChanges, ControlValueAcces
     /** Change date using the given block */
     public setDate(item: IDateBlock) {
         this.date = item.value;
-        if (this._onChange) { 
-            this._onChange(this.date); 
+        if (this._onChange) {
+            this._onChange(this.date);
         }
         this.generateMonth();
     }
@@ -127,7 +127,7 @@ export class DatePickerComponent implements OnInit, OnChanges, ControlValueAcces
                 this.from = dayjs(this.options.from);
                 const today = dayjs().startOf('month');
                 const date = this.from.startOf('month');
-                this.min_offset = -today.diff(date, 'month');
+                this.min_offset = date.diff(today, 'month');
             } else if (this.from) {
                 this.from = null;
                 this.min_offset = -999999;
@@ -136,8 +136,8 @@ export class DatePickerComponent implements OnInit, OnChanges, ControlValueAcces
             if (this.options.to) {
                 this.to = dayjs(this.options.to);
                 const today = dayjs().startOf('month');
-                const date = this.from.startOf('month');
-                this.max_offset = today.diff(date, 'month');
+                const date = this.to.startOf('month');
+                this.max_offset = date.diff(today, 'month');
             } else if (this.to) {
                 this.to = null;
                 this.max_offset = 999999;
