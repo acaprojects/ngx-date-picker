@@ -21,7 +21,7 @@ export class AppComponent implements OnInit {
     public ngOnInit(): void {
         this.model.from = dayjs().subtract(2, 'M').valueOf();
         this.model.to = dayjs().add(12, 'M').valueOf();
-        this.model.date = dayjs().add(2, 'd').valueOf();
+        this.model.date = dayjs().add(3, 'M').valueOf();
         this.model.events = {};
         this.model.events[`${dayjs().format('YYYY-MM-DD')}`] = Math.floor(Math.random() * 20 + 1);
         this.model.events[`${dayjs().add(2, 'd').format('YYYY-MM-DD')}`] = Math.floor(Math.random() * 20 + 1);

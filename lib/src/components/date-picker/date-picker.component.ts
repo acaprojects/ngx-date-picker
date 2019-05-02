@@ -88,9 +88,6 @@ export class DatePickerComponent implements OnInit, OnChanges, ControlValueAcces
         if (changes.options) {
             this.updateOptions();
         }
-        if (changes.model) {
-            this.updateDate();
-        }
     }
 
     /** Change date using the given block */
@@ -224,6 +221,7 @@ export class DatePickerComponent implements OnInit, OnChanges, ControlValueAcces
      */
     public writeValue(value: number) {
         this.date = value;
+        this.updateDate();
         this.generateMonth();
     }
 
