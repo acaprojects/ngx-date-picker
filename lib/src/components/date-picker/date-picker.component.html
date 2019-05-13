@@ -14,7 +14,7 @@
     <div class="body">
         <div class="block" *ngFor="let item of date_list">
             <div class="date" (click)="setDate(item)" (touchend)="setDate(item)" [class.non-month]="item.non_month"
-                [class.disabled]="item.disabled && !item.non-month" [class.active]="item.active">
+                [class.disabled]="item.disabled || !item.non-month" [class.active]="item.active">
                 {{item.display}}
                 <div class="dot" *ngIf="item.today"></div>
                 <div class="count" *ngIf="item.count">{{item.count > 9 ? '+9' : item.count}}</div>

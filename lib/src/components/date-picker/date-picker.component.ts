@@ -121,7 +121,7 @@ export class DatePickerComponent implements OnInit, OnChanges, ControlValueAcces
         if (this.options) {
             // Setup from date
             if (this.options.from) {
-                this.from = dayjs(this.options.from);
+                this.from = dayjs(this.options.from).startOf('d');;
                 const today = dayjs().startOf('month');
                 const date = this.from.startOf('month');
                 this.min_offset = date.diff(today, 'month');
@@ -131,7 +131,7 @@ export class DatePickerComponent implements OnInit, OnChanges, ControlValueAcces
             }
             // Setup to date
             if (this.options.to) {
-                this.to = dayjs(this.options.to);
+                this.to = dayjs(this.options.to).startOf('d');
                 const today = dayjs().startOf('month');
                 const date = this.to.startOf('month');
                 this.max_offset = date.diff(today, 'month');

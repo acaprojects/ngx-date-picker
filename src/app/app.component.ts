@@ -19,7 +19,7 @@ export class AppComponent implements OnInit {
     }
 
     public ngOnInit(): void {
-        this.model.from = dayjs().subtract(2, 'M').valueOf();
+        this.model.from = dayjs().subtract(2, 'd').valueOf();
         this.model.to = dayjs().add(12, 'M').valueOf();
         this.model.date = dayjs().add(3, 'M').valueOf();
         this.model.events = {};

@@ -104,7 +104,7 @@
         background-color: $disabled-color;
         color: #fff;
         cursor: default;
-        pointer-events: not-allowed;
+        pointer-events: none;
         &:hover {
             background-color: $disabled-color;
         }
