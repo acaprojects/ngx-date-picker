@@ -1,0 +1,156 @@
+
+$color-primary: #1976d2;
+$disabled-color: #eee;
+
+.date-picker {
+    width: 24em;
+    user-select: none;
+}
+
+.header {
+    font-size: 1.2em;
+}
+
+.header,
+.week {
+    display: flex;
+    align-items: center;
+}
+
+.arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 1.5em;
+    width: 1.5em;
+    cursor: pointer;
+    margin: 0 .5em;
+
+    &.disabled {
+        opacity: .2;
+        pointer-events: none;
+        .icon:hover { opacity: 1; }
+    }
+}
+
+.icon {
+    height: 1.25em;
+    width: 1.25em;
+    background-size: contain;
+    &:hover {
+        opacity: .54;
+    }
+}
+
+.previous.icon {
+    background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBkPSJNMTUuNDEgMTYuNTlMMTAuODMgMTJsNC41OC00LjU5TDE0IDZsLTYgNiA2IDYgMS40MS0xLjQxeiIvPjxwYXRoIGZpbGw9Im5vbmUiIGQ9Ik0wIDBoMjR2MjRIMFYweiIvPjwvc3ZnPg==);
+}
+
+.next.icon {
+    background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBkPSJNOC41OSAxNi41OUwxMy4xNyAxMiA4LjU5IDcuNDEgMTAgNmw2IDYtNiA2LTEuNDEtMS40MXoiLz48cGF0aCBmaWxsPSJub25lIiBkPSJNMCAwaDI0djI0SDBWMHoiLz48L3N2Zz4=);
+}
+
+.month {
+    flex: 1;
+    text-align: center;
+}
+
+.week {
+    .block {
+        font-size: .9em;
+        font-weight: 500;
+    }
+}
+
+.body {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.block {
+    min-width: calc(100% / 7);
+    flex: 1;
+    min-height: 3.25em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.date {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 2.5em;
+    width: 2.5em;
+    border-radius: 100%;
+    cursor: pointer;
+    transition: background-color 200ms;
+
+    &:hover {
+        background-color: #f0f0f0;
+    }
+    &.active {
+        background-color: $color-primary;
+        color: #fff;
+        cursor: default;
+        font-weight: 500;
+        &:hover {
+            background: $color-primary;
+        }
+    }
+    &.disabled {
+        background-color: $disabled-color;
+        color: #fff;
+        cursor: default;
+        pointer-events: none;
+        &:hover {
+            background-color: $disabled-color;
+        }
+    }
+    &.non-month {
+        background: none;
+        color: $disabled-color;
+        cursor: default;
+        pointer-events: none;
+        &:hover {
+            background: none;
+        }
+        .count {
+            display: none;
+        }
+    }
+}
+
+.dot {
+    position: absolute;
+    bottom: -2px;
+    left: 50%;
+    transform: translateX(-50%);
+    height: 4px;
+    width: 4px;
+    border-radius: 100%;
+    border: 2px solid #fff;
+    background-color: $color-primary;
+    box-sizing: content-box;
+}
+
+.count {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: -.75em;
+    right: -.75em;
+    font-size: .6em;
+    height: 2em;
+    width: 2em;
+    border-radius: 100%;
+    font-weight: 500;
+    border: 3px solid #fff;
+    color: #fff;
+    background-color: $color-primary;
+}
+

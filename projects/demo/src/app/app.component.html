@@ -1,0 +1,7 @@
+<div class="app">
+    <div class="test">
+        <a-date-picker [(ngModel)]="model.date" [counters]="model.events" [options]="{ from: model.from, to: model.to, day_format: model.format }"></a-date-picker>
+        <div class="date">{{model.date | date}}</div>
+        <button (click)="reset()">Reset Date</button>
+    </div>
+</div>
