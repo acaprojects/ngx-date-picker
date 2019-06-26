@@ -78,6 +78,8 @@ export class ADatePickerComponent implements OnInit, OnChanges, ControlValueAcce
     private _onChange: (_: number) => void;
     /** Form control on touch handler */
     private _onTouch: (_: number) => void;
+    /** ID of the timer used for changing the month */
+    private _change_timer: number;
 
     public ngOnInit(): void {
         this.generateMonth();
@@ -194,12 +196,18 @@ export class ADatePickerComponent implements OnInit, OnChanges, ControlValueAcce
      * @param value Number of months to change the offset by
      */
     public changeMonth(value: number): void {
-        const new_offset = this.offset + value;
-        const date = dayjs().add(new_offset, 'month');
-        if (this.from && date.isBefore(this.from, 'M')) { return; }
-        if (this.to && date.isAfter(this.to, 'M')) { return; }
-        this.offset = new_offset;
-        this.generateMonth();
+        if (this._change_timer) {
+            clearTimeout(this._change_timer);
+        }
+        this._change_timer = <any>setTimeout(() => {
+            const new_offset = this.offset + value;
+            const date = dayjs().add(new_offset, 'month');
+            if (this.from && date.isBefore(this.from, 'M')) { return; }
+            if (this.to && date.isAfter(this.to, 'M')) { return; }
+            this.offset = new_offset;
+            this.generateMonth();
+            this._change_timer = null;
+        }, 100);
     }
 
     /**
