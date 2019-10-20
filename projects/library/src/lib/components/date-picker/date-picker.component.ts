@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnChanges, SimpleChanges, forwardRef } from '@angular/core';
+import { Component, OnInit, Input, Output, OnChanges, SimpleChanges, forwardRef, EventEmitter } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 import * as day_api from 'dayjs';
@@ -51,6 +51,8 @@ export class ADatePickerComponent implements OnInit, OnChanges, ControlValueAcce
     @Input() public counters: { [date: string]: number };
     /** Settings for the date picker component */
     @Input() public options: IDatePickerOptions;
+    /** Offset of the display month from the current month */
+    @Output() public month = new EventEmitter<number>();
 
     public date: number = dayjs().valueOf();
 
@@ -114,6 +116,7 @@ export class ADatePickerComponent implements OnInit, OnChanges, ControlValueAcce
             const difference = date.diff(now, 'month');
             if (this.offset !== difference) {
                 this.offset = difference;
+                this.month.emit(this.offset);
             }
             this.generateMonth();
         }
@@ -208,6 +211,7 @@ export class ADatePickerComponent implements OnInit, OnChanges, ControlValueAcce
             if (this.from && date.isBefore(this.from, 'M')) { return; }
             if (this.to && date.isAfter(this.to, 'M')) { return; }
             this.offset = new_offset;
+            this.month.emit(this.offset);
             this.generateMonth();
             this._change_timer = null;
         }, 100);
@@ -224,6 +228,7 @@ export class ADatePickerComponent implements OnInit, OnChanges, ControlValueAcce
         if (offset !== this.offset) {
             this.generateMonth();
         }
+        this.month.emit(this.offset);
     }
 
     /**
