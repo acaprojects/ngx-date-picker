@@ -90,6 +90,9 @@ export class ADatePickerComponent implements OnInit, OnChanges, ControlValueAcce
         if (changes.options) {
             this.updateOptions();
         }
+        if (changes.counters) {
+            this.generateMonth();
+        }
     }
 
     /** Change date using the given block */
